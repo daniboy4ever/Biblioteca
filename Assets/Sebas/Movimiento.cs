@@ -13,8 +13,13 @@ public class Movimiento : MonoBehaviour
     private Rigidbody rb;
     private Vector3 movimientoXZ;
 
+    private Animator animator;
+    private bool isRunning;
+
+
     void Start()
     {
+        animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
     }
 
@@ -52,8 +57,16 @@ public class Movimiento : MonoBehaviour
         //Mover jugador
         //transform.position += movimientoXZ;
 
-        Debug.Log($"Valor Horizontal: {horizontal} Valor Vertical: {vertical}");
-    
+        //ANIMACION
+        if(vertical != 0) isRunning = true;
+        else isRunning = false;
+
+        UpdateAnimation();
+
+        Debug.Log($"Valor Horizontal: {horizontal} Valor Vertical: {vertical} IsRunnig: {isRunning}");
+
+
+
     }
 
     void FixedUpdate()
@@ -62,5 +75,12 @@ public class Movimiento : MonoBehaviour
         rb.linearVelocity = new Vector3(movimientoXZ.x, 
         rb.linearVelocity.y, //Recuperar Gravedad
         movimientoXZ.z);
+    }
+
+    public void UpdateAnimation()
+    {
+
+        animator.SetBool("isRunning", isRunning);
+
     }
 }
