@@ -15,7 +15,7 @@ public class Movimiento : MonoBehaviour
 
     void Start()
     {
-    rb = GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody>();
     }
 
     void Update()
