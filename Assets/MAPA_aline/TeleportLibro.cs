@@ -53,9 +53,9 @@ public class TeleportLibro : MonoBehaviour
     private IEnumerator ProcesoTeleport(GameObject jugador)
     {
         if (gestorPortales != null)
-{
-    gestorPortales.MoverPortalAlAzar(this.transform);
-}
+        {
+            gestorPortales.MoverPortalAlAzar(this.transform);
+        }
         teletransportando = true;
 
         // 1. Pausa el movimiento y congela al jugador
