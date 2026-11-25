@@ -2,58 +2,56 @@ using UnityEngine;
 
 public class Movimiento2 : MonoBehaviour
 {
-    [Header("Movimiento")]
     public float velocidad = 6f;
     public float velocidadGiro = 12f;
-    public float fuerzaSalto = 5f;
+    private Animator anim;
+    private Transform camara;
 
-    private Rigidbody rb;
-    private Transform camaraPrincipal;
-
-    private void Start()
+    void Start()
     {
-        rb = GetComponent<Rigidbody>();
-        rb.freezeRotation = true; // Evita que el cubo ruede como dado al chocar
-
+        anim = GetComponent<Animator>();
         if (Camera.main != null)
         {
-            camaraPrincipal = Camera.main.transform;
+            camara = Camera.main.transform;
         }
     }
 
-    private void FixedUpdate()
+    void Update()
     {
-        float horizontal = Input.GetAxisRaw("Horizontal"); // A y D
-        float vertical = Input.GetAxisRaw("Vertical");     // W y S
+        float x = Input.GetAxis("Horizontal"); // A y D (izquierda / derecha de la pantalla)
+        float z = Input.GetAxis("Vertical");   // W y S (adelante / atrás de la cámara)
 
-        Vector3 direccionInput = new Vector3(horizontal, 0f, vertical).normalized;
+        Vector3 direccion;
 
-        if (direccionInput.magnitude >= 0.1f && camaraPrincipal != null)
+        if (camara != null)
         {
-            // Calcula el ángulo hacia donde apunta la cámara + las teclas presionadas
-            float anguloObjetivo = Mathf.Atan2(direccionInput.x, direccionInput.z) * Mathf.Rad2Deg + camaraPrincipal.eulerAngles.y;
-            Quaternion rotacionSuave = Quaternion.Euler(0f, anguloObjetivo, 0f);
+            // Toma hacia dónde mira la cámara en el plano horizontal (sin inclinación arriba/abajo)
+            Vector3 frenteCamara = camara.forward;
+            Vector3 derechaCamara = camara.right;
+            frenteCamara.y = 0f;
+            derechaCamara.y = 0f;
+            frenteCamara.Normalize();
+            derechaCamara.Normalize();
 
-            // Gira el cubo suavemente hacia donde camina
-            rb.MoveRotation(Quaternion.Slerp(rb.rotation, rotacionSuave, velocidadGiro * Time.fixedDeltaTime));
-
-            // Mueve el cubo hacia adelante en esa dirección sin alterar su caída/gravedad
-            Vector3 direccionMovimiento = rotacionSuave * Vector3.forward;
-            rb.linearVelocity = new Vector3(direccionMovimiento.x * velocidad, rb.linearVelocity.y, direccionMovimiento.z * velocidad);
+            direccion = (frenteCamara * z + derechaCamara * x).normalized;
         }
         else
         {
-            // Frena el desplazamiento horizontal al soltar las teclas
-            rb.linearVelocity = new Vector3(0f, rb.linearVelocity.y, 0f);
+            direccion = new Vector3(x, 0f, z).normalized;
         }
-    }
 
-    private void Update()
-    {
-        // Salto con barra espaciadora
-        if (Input.GetKeyDown(KeyCode.Space) && Mathf.Abs(rb.linearVelocity.y) < 0.05f)
+        if (direccion.magnitude >= 0.1f)
         {
-            rb.AddForce(Vector3.up * fuerzaSalto, ForceMode.Impulse);
+            transform.Translate(direccion * velocidad * Time.deltaTime, Space.World);
+
+            Quaternion rotacionObjetivo = Quaternion.LookRotation(direccion);
+            transform.rotation = Quaternion.Slerp(transform.rotation, rotacionObjetivo, velocidadGiro * Time.deltaTime);
+
+            if (anim != null) anim.SetBool("isRunning", true);
+        }
+        else
+        {
+            if (anim != null) anim.SetBool("isRunning", false);
         }
     }
 }
