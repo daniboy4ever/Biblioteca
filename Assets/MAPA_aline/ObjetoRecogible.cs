@@ -9,7 +9,8 @@ public class ObjetoRecogible : MonoBehaviour
     [Header("Interfaz y Secuencia")]
     public Image circuloUI;             // Su círculo en el Canvas
     public GameObject siguienteObjeto;  // En Libro -> arrastra Raton | En Raton -> arrastra Llave
-    public GameObject puertaOficina;    // En Llave -> arrastra la puerta de la oficina
+    public GameObject puertaOficina;
+    public GameObject portalVictoria;    
     public float distanciaAgarre = 2.5f;
 
     private Transform jugador;
@@ -58,6 +59,11 @@ public class ObjetoRecogible : MonoBehaviour
         {
             puertaOficina.SetActive(false);
         }
+
+        if (portalVictoria != null)
+{
+    portalVictoria.SetActive(true);
+}
 
         Destroy(gameObject);
     }
