@@ -15,6 +15,9 @@ public class EnemigoIA : MonoBehaviour
     public float rangoPerdida = 13f; //A esta distancia te deja de perseguir
     public float velocidadPersecucion = 5.7f; //Velocidad
 
+    public float rangoAtaque = 0.4f; //A esta distancia quita un corazón
+    private VidaJugador vidaJugador; //Para llamar función
+
     private float temporizadorEspera;
     private bool persiguiendo; //Qué estado tiene el enemigo
 
@@ -25,6 +28,9 @@ public class EnemigoIA : MonoBehaviour
         agente = GetComponent<NavMeshAgent>();
         temporizadorEspera = tiempoEspera;
         animator = GetComponent<Animator>();
+
+        vidaJugador = jugador.GetComponent<VidaJugador>();
+
     }
 
     void Update()
@@ -49,6 +55,13 @@ public class EnemigoIA : MonoBehaviour
         if (persiguiendo)
         {
             agente.SetDestination(jugador.position);
+
+            //Quitar un corazón
+            if (distCuadrada <= rangoAtaque * rangoAtaque && vidaJugador != null)
+            {
+                vidaJugador.RecibirDano();
+            }
+
         }
         else
         {
@@ -84,6 +97,10 @@ public class EnemigoIA : MonoBehaviour
 
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, rangoPerdida);
+
+        //Ataque
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position, rangoAtaque);
     }
 
     public void Animations()
