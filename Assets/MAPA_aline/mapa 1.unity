@@ -9100,6 +9100,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2653195860033163676, guid: 38170623540dd8f4a893caa6f896da22, type: 3}
+      propertyPath: m_Constraints
+      value: 80
+      objectReference: {fileID: 0}
     - target: {fileID: 7368099776149344079, guid: 38170623540dd8f4a893caa6f896da22, type: 3}
       propertyPath: m_Name
       value: Ch09_nonPBR (1)
@@ -10765,7 +10769,7 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f8ba251504c3ba743b6cd334ce9f4861, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 426598161}
+      addedObject: {fileID: 426598165}
   m_SourcePrefab: {fileID: 100100000, guid: f8ba251504c3ba743b6cd334ce9f4861, type: 3}
 --- !u!1 &362987199
 GameObject:
@@ -11925,8 +11929,8 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: f8ba251504c3ba743b6cd334ce9f4861, type: 3}
   m_PrefabInstance: {fileID: 360340578}
   m_PrefabAsset: {fileID: 0}
---- !u!64 &426598161
-MeshCollider:
+--- !u!65 &426598165
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -11943,10 +11947,9 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -6654789114288719284, guid: f8ba251504c3ba743b6cd334ce9f4861, type: 3}
+  serializedVersion: 3
+  m_Size: {x: 0.98950636, y: 0.6181384, z: 1.7221801}
+  m_Center: {x: 0.042334832, y: 0.0030414944, z: 0.85947436}
 --- !u!1 &429714739 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 436b9963578bbcf4ea08838ef2a8920b, type: 3}
@@ -16552,7 +16555,7 @@ Transform:
   m_GameObject: {fileID: 713478591}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 8.5, y: 2.5, z: -0.099999905}
+  m_LocalPosition: {x: 8.5, y: 2.41, z: -0.099999905}
   m_LocalScale: {x: 5, y: 5, z: 0.2}
   m_ConstrainProportionsScale: 0
   m_Children: []
