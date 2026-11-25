@@ -16,7 +16,7 @@ public class MovimientoJugador : MonoBehaviour
     public Transform modelTransform;
     public Transform cameraPivot;
 
-    public Animator animator;
+    private Animator animator;
     private bool isWalking;
     private bool isRunning;
     public float walkspeed = 3f;

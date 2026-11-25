@@ -10,6 +10,15 @@ public class VidaJugador : MonoBehaviour
     public float tiempoInvulnerable = 1.7f; //Para que quite los 3 corazones de golpe
     private float temporizadorInvulnerable;
 
+    public AudioSource audioJugador;
+    public AudioClip sonidoHerido;
+
+    void Start()
+    {
+    
+    audioJugador = GetComponent<AudioSource>();
+    }
+
     void Update()
     {
         if (temporizadorInvulnerable > 0)
@@ -25,6 +34,12 @@ public class VidaJugador : MonoBehaviour
 
         vidas--;
         temporizadorInvulnerable = tiempoInvulnerable;
+
+        //Sonido niño herido
+        if (audioJugador != null && sonidoHerido != null)
+        {
+            audioJugador.PlayOneShot(sonidoHerido);
+        }
 
         ActualizarCorazones();
 

@@ -18,10 +18,19 @@ public class EnemigoIA : MonoBehaviour
     public float rangoAtaque = 0.4f; //A esta distancia quita un corazón
     private VidaJugador vidaJugador; //Para llamar función
 
+    //AUDIO
+    public AudioSource audioBibliotecaria;
+    public AudioClip sonidoDefault;
+    public AudioClip sonidoCorrer;
+
+    public AudioSource audioMusica;
+    public AudioClip musicaNormal;
+    public AudioClip musicaPersecucion;
+
     private float temporizadorEspera;
     private bool persiguiendo; //Qué estado tiene el enemigo
 
-    public Animator animator;
+    private Animator animator;
 
     void Start()
     {
@@ -31,14 +40,30 @@ public class EnemigoIA : MonoBehaviour
 
         vidaJugador = jugador.GetComponent<VidaJugador>();
 
+        //Iniciar sonidos por defecto
+        CambiarSonidoBibliotecaria(sonidoDefault);
+        CambiarMusica(musicaNormal);
+
     }
 
     void Update()
     {
-        if (jugador == null) return;
 
         //Calculamos la distancia de forma optima
         float distCuadrada = (jugador.position - transform.position).sqrMagnitude;
+
+        if (!persiguiendo && distCuadrada <= rangoDeteccion * rangoDeteccion)
+        {
+            CambiarSonidoBibliotecaria(sonidoCorrer);
+            CambiarMusica(musicaPersecucion);
+        }
+
+
+        else if (persiguiendo && distCuadrada > rangoPerdida * rangoPerdida)
+        {
+            CambiarSonidoBibliotecaria(sonidoDefault);
+            CambiarMusica(musicaNormal);
+        }
 
         if (!persiguiendo && distCuadrada <= rangoDeteccion * rangoDeteccion)
         {
@@ -109,5 +134,23 @@ public class EnemigoIA : MonoBehaviour
 
         animator.SetBool("isWalking", isWalking);
         animator.SetBool("isRunning", persiguiendo && isWalking);
+    }
+
+    public void CambiarSonidoBibliotecaria(AudioClip nuevoClip)
+    {
+        if (audioBibliotecaria == null || nuevoClip == null) return;
+        if (audioBibliotecaria.clip == nuevoClip) return;
+
+        audioBibliotecaria.clip = nuevoClip;
+        audioBibliotecaria.Play();
+    }
+
+    public void CambiarMusica(AudioClip nuevaMusica)
+    {
+        if (audioMusica == null || nuevaMusica == null) return;
+        if (audioMusica.clip == nuevaMusica) return;
+
+        audioMusica.clip = nuevaMusica;
+        audioMusica.Play();
     }
 }
