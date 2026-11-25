@@ -78,7 +78,7 @@ public class MovimientoJugador : MonoBehaviour
     {
         isWalking = moveInput.magnitude > 0.1f;
 
-        animator.SetBool("isMoving", isWalking);
+        animator.SetBool("isWalking", isWalking);
         animator.SetBool("isRunning", isRunning && isWalking);
     }
 
