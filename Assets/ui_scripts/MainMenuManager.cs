@@ -6,7 +6,7 @@ public class MainMenuManager : MonoBehaviour
 {
     public void PlayGame()
     {
-        SceneManager.LoadScene("IntroVideo");
+        SceneManager.LoadScene("Cinematica");
     }
 
     public void ExitGame()

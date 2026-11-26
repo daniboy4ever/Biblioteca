@@ -892,7 +892,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::IntroManager
   videoPlayer: {fileID: 1944992682}
-  gameSceneName: Game
+  gameSceneName: mapa1
 --- !u!4 &1668196750
 Transform:
   m_ObjectHideFlags: 0

@@ -5,9 +5,21 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 0
+    path: Assets/Scenes/IntroVideo.unity
+    guid: 016e95a7ab6d9ca45a8041fba89557f1
+  - enabled: 1
+    path: Assets/Scenes/ui_mainmenu.unity
+    guid: 2a53b7c362e457d41b40f83be160c49f
+  - enabled: 1
+    path: Assets/Scenes/Cinematica.unity
+    guid: 3f49123c8770f5a4dae3f77823a7bfd6
+  - enabled: 1
+    path: Assets/VENNERBOOK/mapa 1.unity
+    guid: 47ec8ba26a72ff54fa5379cd55c601a9
   m_configObjects:
     com.unity.dt.app-ui: {fileID: 11400000, guid: 99f9c9493070a9d4c979a8fec7c5a8d3, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}

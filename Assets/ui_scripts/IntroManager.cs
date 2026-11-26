@@ -9,7 +9,7 @@ public class IntroManager : MonoBehaviour
     public VideoPlayer videoPlayer;
 
     [Header("Escena del juego")]
-    public string gameSceneName = "Game";
+    public string gameSceneName = "mapa1";
 
     private bool hasStartedGame = false;
 
