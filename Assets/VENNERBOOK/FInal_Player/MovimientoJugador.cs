@@ -22,6 +22,13 @@ public class MovimientoJugador : MonoBehaviour
     public float walkspeed = 3f;
     public float runSpeed = 7f;
 
+    //SALTO VARIABLE
+    public float fuerzaSaltoNormal = 5.5f; //Para escalones (toque rápido)
+    public float fuerzaSaltoAlto = 8.5f;   //Para sillas/mesas (mantener botón)
+    public float tiempoCargaMax = 0.25f;   //Segundos manteniendo para salto alto
+    private float tiempoPresionado = 0f;
+    private bool cargandoSalto = false;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -46,7 +53,7 @@ public class MovimientoJugador : MonoBehaviour
         {
             verticalVelocity = -2f;
         }
-        verticalVelocity += gravity * Time.deltaTime;
+        verticalVelocity += gravity * 2f * Time.deltaTime;
 
         Vector3 forward = cameraPivot.forward;
         Vector3 right = cameraPivot.right;
@@ -70,6 +77,17 @@ public class MovimientoJugador : MonoBehaviour
         //Vector3 move = new Vector3(moveInput.x, 0, moveInput.y);
         controller.Move(velocity *Time.deltaTime);
 
+        //Controlar carga del salto alto
+        if (cargandoSalto)
+        {
+            tiempoPresionado += Time.deltaTime;
+            if (tiempoPresionado >= tiempoCargaMax)
+            {
+                verticalVelocity = fuerzaSaltoAlto;
+                cargandoSalto = false;
+            }
+        }
+
         Animations();
     }
 
@@ -88,7 +106,22 @@ public class MovimientoJugador : MonoBehaviour
     }
 
 
-    
+    public void OnJump(InputAction.CallbackContext context)
+    {
+        //Al presionar el botón en el suelo empieza a cargar el salto
+        if (context.started && controller.isGrounded)
+        {
+            cargandoSalto = true;
+            tiempoPresionado = 0f;
+        }
+
+        //Si suelta el botón antes del tiempo máximo hace el salto normal
+        if (context.canceled && cargandoSalto)
+        {
+            verticalVelocity = fuerzaSaltoNormal;
+            cargandoSalto = false;
+        }
+    }
 
 
 }
